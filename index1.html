@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Recipe Finder</title>
+</head>
+<body>
+  <div class="container">
+    <h1 data-view="search">🍳 Interactive Recipe Finder</h1>
+
+    <!-- Filters Section -->
+    <button id="filterBtn" class="filter-btn">⚙️ Filters</button>
+
+    <div id="filterPanel" class="filter-panel">
+      <h3>Dietary Preferences</h3>
+      <label><input type="checkbox" class="filter-option" value="vegetarian"> Vegetarian </label><br>
+      <label><input type="checkbox" class="filter-option" value="vegan"> Vegan </label><br>
+      <label><input type="checkbox" class="filter-option" value="keto"> Keto </label><br>
+      <label><input type="checkbox" class="filter-option" value="gluten free"> Gluten-Free </label><br>
+
+      <h3>Cuisine</h3>
+      <label><input type="checkbox" class="filter-option" value="south indian"> South Indian </label><br>
+      <label><input type="checkbox" class="filter-option" value="north indian"> North Indian </label><br>
+      <label><input type="checkbox" class="filter-option" value="chinese"> Chinese </label><br>
+      <label><input type="checkbox" class="filter-option" value="italian"> Italian </label><br>
+      <label><input type="checkbox" class="filter-option" value="mexican"> Mexican </label><br>
+      <label><input type="checkbox" class="filter-option" value="thai"> Thai </label><br>
+
+      <h3>Meal Type</h3>
+      <label><input type="checkbox" class="filter-option" value="breakfast"> Breakfast </label><br>
+      <label><input type="checkbox" class="filter-option" value="lunch"> Lunch </label><br>
+      <label><input type="checkbox" class="filter-option" value="dinner"> Dinner </label><br>
+      <label><input type="checkbox" class="filter-option" value="snack"> Snacks </label><br>
+
+      <h3>Time Filter</h3>
+      <label><input type="checkbox" class="filter-option" value="15"> Under 15 mins </label><br>
+      <label><input type="checkbox" class="filter-option" value="30"> Under 30 mins</label><br>
+      <label><input type="checkbox" class="filter-option" value="60"> Under 1 hour</label><br>
+
+      <button id="applyFilters" class="apply-btn">Apply Filters</button>
+    </div>
+
+    <!-- Input Section -->
+    <div class="input-group">
+      <input type="text" id="ingredients" placeholder="Enter ingredients...">
+      <button class="btn" onclick="startListening()">🎤 Speak</button>
+    </div>
+
+    <button onclick="findRecipes()">Find Recipes</button>
+    <button onclick="showFavorites()">⭐ My Favorites</button>
+    <div id="spinner" class="spinner hidden"></div>
+    <div id="recipes" class="recipes"></div>
+
+    <!-- Welcome / Instructions -->
+    <div class="welcome-text">
+      <h2>Welcome to your personal recipe assistant! 🍳</h2>
+      <p>Type the ingredients you have at home, and we'll suggest delicious recipes just for you. No more last-minute grocery stress!</p>
+    </div>
+
+    <!-- Cooking Tips / Fun Facts -->
+    <div class="tips">
+      <h2>💡 Cooking Tips</h2>
+      <ul>
+        <li>Always season as you cook, not just at the end.</li>
+        <li>Fresh herbs can make a big difference in flavor.</li>
+        <li>Keep your knives sharp—it makes cooking faster and safer.</li>
+        <li>Try to taste your food as you go to adjust seasoning.</li>
+      </ul>
+    </div>
+
+    <!-- Illustrations -->
+    <div class="recipe-illustrations">
+      <img src="chef.png" alt="Chef Hat" width="100">
+      <img src="cookingpot.png" alt="Cooking Pot" width="100">
+      <img src="spice.png" alt="Spices" width="100">
+    </div>
+  </div>
+
+  <!-- Recipe Modal -->
+  <div id="recipeModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div id="modal-body">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Step-by-Step Cooking Mode -->
+  <div id="cookingMode" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCookingMode()">&times;</span>
+      <h2 id="recipe-title">Recipe Title</h2>
+      <p id="step-text">Step goes here...</p>
+      <div id="controls">
+        <button onclick="prevStep()">⬅ Back</button>
+        <button onclick="repeatStep()">🔁 Repeat</button>
+        <button onclick="nextStep()">➡ Next</button>
+      </div>
+      <p id="progress">Step 1 of X</p>
+      <button onclick="startVoiceCommands()">🎤 Enable Voice Commands</button>
+    </div>
+  </div>
+
+  <script>
+    const filterBtn = document.getElementById("filterBtn");
+    const filterPanel = document.getElementById("filterPanel");
+    const applyFiltersBtn = document.getElementById("applyFilters");
+
+    filterBtn.addEventListener("click", () => {
+      filterPanel.classList.toggle("active");
+    });
+
+    applyFiltersBtn.addEventListener("click", () => {
+      filterPanel.classList.remove("active"); // close after applying
+      findRecipes(); // refresh results with selected filters
+    });
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
