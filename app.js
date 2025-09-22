@@ -1,4 +1,4 @@
-const apiKey = "578cf9d67b9a45808ccbee8607ca6bd7";  
+const apiKey = "your_api_key";  
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 const recipeContainer = document.getElementById("recipes");
@@ -276,4 +276,5 @@ function speak(text) {
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
 }
+
 
